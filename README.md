@@ -3,7 +3,7 @@
 参考博客文章:<br>
 <a href='https://blog.csdn.net/weixin_40412037/article/details/113885372'>ThinkPHP 日志信息泄露——漏洞复现</a>
 <hr>
-工具主要就是对以下两个路径进行日志文件的扫描探测:
+主要就是对以下两个目录进行日志文件的扫描探测:
 
 * thinkphp 3.1 默认日志文件目录 /Runtime/Logs/Home/
 * thinkphp 3.2 默认日志文件目录 /Application/Runtime/Logs/Home/
