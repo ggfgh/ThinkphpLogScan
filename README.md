@@ -58,10 +58,10 @@ app="thinkphp"
 ![img_1.png](img/img_4.png)
 
 #### 存在漏洞的目标
-![img.png](img6.png/img5.png)
+![img.png](img/img5.png)
 
 #### 存在漏洞的目标默认保存到vuln.txt中
-![img_1.png](img_6.pn/img_6.png)
+![img.png](img/img6.png)
 
 ### 0x04 更新记录
 * 增加了调用```pocsuite3.api```中的Fofa模块获取目标信息进行检测的方式
