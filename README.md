@@ -19,21 +19,24 @@ pip install -r requirement.txt
 ```
 #### 2.相关命令参数的说明
 ```
- -h, --help            show this help message and exit
+optional arguments:
+  -h, --help            show this help message and exit
   -u TARGET, --url TARGET
                         The target url
   -sY SYEAR, --start-year SYEAR
                         The year the scan began. Default: 22.
   -eY EYEAR, --end-year EYEAR
-                        The year the scan end. Default: 23.
+                        The year the scan end. Defalut: 23
+  -p PAGE_COUNT, --page PAGE_COUNT
+                        The number of pages searched using FOFA. Defalut: 10
   -t THREAD_COUNT, --thread THREAD_COUNT
                         The number of threads.Default value is 10
-  -f SCAN_FILE, --file SCAN_FILE
-                        The target list file.
   --proxy PROXY         The setting of proxy. Example: http://127.0.0.1:31120
+  -f TARGET_LIST, --file TARGET_LIST
+                        The file of target list
   -o OUTFILE, --outfile OUTFILE
-                        The file location where the results are saved.Default
-                        value is vuln.txt
+                        The file location where the results are saved.
+                        Default: vuln.txt
 ```
 其实我都已经默认配置好所需的参数了，您只需要将需要检测的url复制到urls.txt文件中，直接执行:
 ```

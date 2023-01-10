@@ -1,6 +1,5 @@
 requests
 threading
-rich
 argparse
 queue
 random
