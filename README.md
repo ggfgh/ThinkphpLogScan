@@ -51,7 +51,6 @@ app="thinkphp"
 ![](img/capture_20230110213149033.png)
 
 ![img.png](img/img.png)
-![img.png](img/img.png)
 #### 结果默认保存到vuln.txt中
 ![img_1.png](img/img_1.png)
 
