@@ -51,8 +51,10 @@ app="thinkphp"
 ![](img/capture_20230110213149033.png)
 
 ![img.png](img/img.png)
+![img.png](img/img.png)
 #### 结果默认保存到vuln.txt中
 ![img_1.png](img/img_1.png)
+
 
 ### 0x04 修复建议
 本漏洞产生的原因主要是配置不当，所以配置一下apache的访问控制文件，禁止访问*.log文件即可.
