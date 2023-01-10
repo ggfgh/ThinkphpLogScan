@@ -37,12 +37,7 @@ optional arguments:
   -o OUTFILE, --outfile OUTFILE
                         The file location where the results are saved.
                         Default: vuln.txt
-```
-其实我都已经默认配置好所需的参数了，您只需要将需要检测的url复制到urls.txt文件中，直接执行:
-```
-python thinkphp_log_scanner.py
-```
-即可自动进行批量检测目标是否存在日志泄露。当然，您也可以自定义参数的值进行扫描。
+
 #### 3.资产搜索
 FOFA搜索语句
 ```
