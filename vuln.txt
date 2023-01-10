@@ -1,3 +1,8 @@
-http://60.173.73.4:18001/Application/Runtime/Logs/Home/22_06_23.log
-http://adelink8521.we7shop.com/Application/Runtime/Logs/Home/22_11_23.log
-https://114.115.152.88/Application/Runtime/Logs/Home/22_10_19.log
+http://zgchdh.cn/Application/Runtime/Logs/Home/22_10_10.log
+http://39.104.18.110/Runtime/Logs/Home/22_08_05.log
+https://qinzhou.haogongzhang.com/Application/Runtime/Logs/Home/22_03_27.log
+https://47.107.103.104/Application/Runtime/Logs/Home/22_07_22.log
+http://www.yeeaf.com/Application/Runtime/Logs/Home/22_01_15.log
+http://www.zgchdh.cn/Application/Runtime/Logs/Home/22_07_01.log
+http://119.23.36.201/Application/Runtime/Logs/Home/22_12_04.log
+http://47.92.91.185:10026/Application/Runtime/Logs/Home/22_05_26.log

@@ -12,17 +12,20 @@ from rich.console import Console
 from argparse import ArgumentParser
 from queue import Queue
 import random
+from pocsuite3.api import Fofa
+from pocsuite3.lib.core.data import logger
 
 requests.packages.urllib3.disable_warnings()
 console = Console()
-arg = ArgumentParser(description='thinkphp log scanner')
+arg = ArgumentParser(description='ThinkphpLogScanner')
 arg.add_argument('-u', '--url', help='The target url', dest='target')
 arg.add_argument('-sY', '--start-year', help='The year the scan began. Default: 22.', dest='syear', type=int,default=22)
 arg.add_argument('-eY', '--end-year', help='The year the scan end. Defalut: 23', dest='eyear', type=int,default=23)
+arg.add_argument('-p','--page',help='The number of pages searched using FOFA. Defalut: 10',dest='page_count',type=int,default=10)
 arg.add_argument('-t', '--thread', help='The number of threads.Default value is 10', dest='thread_count', type=int, default=10)
-arg.add_argument('-f', '--file', help='The target list file.', dest='scan_file', default='urls.txt')
 arg.add_argument('--proxy',help='The setting of proxy. Example: http://127.0.0.1:31120',dest='proxy',default='')
-arg.add_argument('-o', '--outfile', help='The file location where the results are saved.Default value is vuln.txt', dest='outfile', default='vuln.txt')
+arg.add_argument('-f','--file',help='The file of target list',dest='target_list',default='')
+arg.add_argument('-o', '--outfile', help='The file location where the results are saved. Default: vuln.txt', dest='outfile', default='vuln.txt')
 option = arg.parse_args()
 
 class ThinkphpLogScan(threading.Thread):
@@ -39,7 +42,7 @@ class ThinkphpLogScan(threading.Thread):
     def _verify(self,target):
         '''
         Detect whether the target has a log leak
-        :return: None
+        :return: (None)
         '''
         mouth = str(random.randint(1, 12))
         day = str(random.randint(1,31))
@@ -47,24 +50,26 @@ class ThinkphpLogScan(threading.Thread):
         verify_url_1 = f"{target}{self.thinkphp_3_1_log_path}{log_format}"
         verify_url_2 = f"{target}{self.thinkphp_3_2_log_path}{log_format}"
         try:
-            console.log(f"[green][INFO] Start verify:{target} request url:{verify_url_1}.")
+            logger.info(f"Start verify:{target} request url:{verify_url_1}.")
             if self.proxies['http']:
-                console.log(f"[green][INFO] Http proxy:{self.proxies['http']} Https proxy:{self.proxies['https']}")
+                logger.info(f"http proxy:{self.proxies['http']} https proxy:{self.proxies['https']}")
             res_1 = requests.get(verify_url_1,headers=self.headers,allow_redirects= False,verify=False,timeout=5,proxies=self.proxies)
-            console.log(f"[green][INFO] Start verify:{target} request url:{verify_url_2}")
+            logger.info(f"Start verify:{target} Request url:{verify_url_2}")
             res_2 = requests.get(verify_url_2, headers=self.headers,allow_redirects= False,verify=False, timeout=5, proxies=self.proxies)
 
             if (res_1.status_code == 200 and "INFO" in res_1.text) or res_1.headers['Content-Type'] == "application/octet-stream":
-                console.log(f"[green][SUCCESS]  Found log url :) {verify_url_1}")
+                logger.info(f"Successfully found log url :) --> {verify_url_1}")
                 with open(option.outfile,'a') as f:
                     f.write(verify_url_1 + '\n')
 
             elif (res_2.status_code == 200 and "INFO" in res_2.text) or res_2.headers['Content-Type'] == "application/octet-stream":
-                console.log(f"[green][SUCCESS] Found log url :) {verify_url_2}")
+                logger.info(f"Successfully found log url :) {verify_url_2}")
                 with open(option.outfile, 'a') as f:
                     f.write(verify_url_2 + '\n')
+            else:
+                logger.warning(f"Not found log file  {target} :(")
         except Exception as e:
-            console.log(f"Error in verify {target}, error info: {e}")
+            logger.error(f"Error in verify {target}, error info: {e}")
 
     def run(self):
         '''
@@ -75,15 +80,21 @@ class ThinkphpLogScan(threading.Thread):
             try:
                 self._verify(target)
             except Exception as e:
-                console.log(f"[red] Error: {e}")
+                logger.error(f"Error: {e}")
 def main():
     threads = []
     thread_count = option.thread_count
     que = Queue()
-    if option.scan_file:
-        with open(option.scan_file,'r') as f:
+
+    # 单个目标检测
+    if option.target:
+        ThinkphpLogScan()._verify(option.target)
+
+    # 批量扫描文件中的目标
+    elif option.target_list:
+        with open(option.target_list, 'r') as f:
             for url in f.readlines():
-                url = url.replace('\n','')
+                url = url.replace('\n', '')
                 que.put(url)
         for t in range(thread_count):
             threads.append(ThinkphpLogScan(que))
@@ -91,14 +102,26 @@ def main():
             t.start()
         for t in threads:
             t.join()
+
+    # 调用FOFA获取目标批量检测
     else:
-        ThinkphpLogScan()._verify(option.target)
+        fa = Fofa()
+        logger.info("Fetch data from fofa,please wait for a time...")
+        urls = fa.search('app="thinkphp"', resource='web', pages=option.page_count)
+        for url in urls:
+            que.put(url)
+        for t in range(thread_count):
+            threads.append(ThinkphpLogScan(que))
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-         console.log(f"[yellow] Error: {e} Use --help to see usage")
+         logger.error(f"Error: {e}. Use option --help to see usage")
 
 
 
