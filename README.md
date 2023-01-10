@@ -37,6 +37,7 @@ optional arguments:
   -o OUTFILE, --outfile OUTFILE
                         The file location where the results are saved.
                         Default: vuln.txt
+```
 
 #### 3.资产搜索
 FOFA搜索语句
