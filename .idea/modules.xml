@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/thinkphp_log_scan.iml" filepath="$PROJECT_DIR$/.idea/thinkphp_log_scan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Thinkphp_log_scan.iml" filepath="$PROJECT_DIR$/.idea/Thinkphp_log_scan.iml" />
     </modules>
   </component>
 </project>
