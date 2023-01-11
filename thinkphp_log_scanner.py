@@ -8,7 +8,6 @@
 """
 import requests
 import threading
-from rich.console import Console
 from argparse import ArgumentParser
 from queue import Queue
 import random
@@ -16,7 +15,6 @@ from pocsuite3.api import Fofa
 from pocsuite3.lib.core.data import logger
 
 requests.packages.urllib3.disable_warnings()
-console = Console()
 arg = ArgumentParser(description='ThinkphpLogScanner')
 arg.add_argument('-u', '--url', help='The target url', dest='target')
 arg.add_argument('-sY', '--start-year', help='The year the scan began. Default: 22.', dest='syear', type=int,default=22)
