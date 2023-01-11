@@ -1,5 +1,5 @@
 ### 0x01 工具简述
-本工具是根据网上公开的thinkphp 3.x日志泄露信息进行编写的。
+本工具是根据网上公开的thinkphp 3.x日志泄露漏洞进行编写的。
 参考博客文章:<br>
 <a href='https://blog.csdn.net/weixin_40412037/article/details/113885372' target='_blank'>ThinkPHP 日志信息泄露——漏洞复现</a>
 <hr>
